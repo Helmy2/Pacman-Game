@@ -42,7 +42,7 @@ if __name__ == '__main__':
             game.update(DISPLAY)
             game_over = game.is_game_over()
             if game_over:
-                menu.display_game_over(DISPLAY)
+                menu.display_game_over(DISPLAY,game.score)
                 pygame.display.update()
                 time.sleep(2)
 

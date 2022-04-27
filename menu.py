@@ -19,25 +19,22 @@ class Menu:
             else:
                 label = self.font.render(item, True, self.font_color)
 
-            width = label.get_width()
-            height = label.get_height()
+            self.draw_text(display, label, index + 1)
 
-            pos_x = (WIDTH * 0.5) - (width * 0.5)
-            # t_h: total height of text block
-            t_h = len(self.items) * height
-            pos_y = (HEIGHT * 0.5) - (t_h * 0.5) + (index * height)
-
-            display.blit(label, (pos_x, pos_y))
-
-    def display_game_over(self, display):
+    def display_game_over(self, display, score):
         display.fill(BLACK)
         label = self.font.render("Game over", True, self.select_color)
+        label2 = self.font.render("Your Score : " + str(score), True, self.select_color)
+
+        self.draw_text(display, label)
+        self.draw_text(display, label2, 2)
+
+    @staticmethod
+    def draw_text(display, label, line=1):
         width = label.get_width()
         height = label.get_height()
         pos_x = (WIDTH * .5) - (width * .5)
-        # t_h: total height of text block
-        t_h = len(self.items) * height
-        pos_y = (HEIGHT * .5) - (t_h * .5)
+        pos_y = (HEIGHT * .5) - (height * 1.5) + ((line - 1) * height)
         display.blit(label, (pos_x, pos_y))
 
     def event_handler(self, e):
