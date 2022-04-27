@@ -1,39 +1,12 @@
-from game import *
+import time
+
+import pygame
+
+from game import Game
 from menu import Menu
-
-TILE_SIZE = 40
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-BLUE = (0, 2, 245)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-
-TILES = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0],
-    [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-    [0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0],
-    [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0],
-    [0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-    [0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-]
+from utilities import TILES, WHITE, BLACK, HEIGHT, WIDTH
 
 pygame.init()
-WIDTH = TILE_SIZE * len(TILES[0])
-HEIGHT = TILE_SIZE * len(TILES)
 DISPLAY = pygame.display.set_mode([WIDTH, HEIGHT])
 
 if __name__ == '__main__':
@@ -64,10 +37,15 @@ if __name__ == '__main__':
         DISPLAY.fill(BLACK)
         if game_over:
             game = Game(TILES, (1, 1))
-            menu.display_frame(DISPLAY, WIDTH, HEIGHT)
+            menu.display_frame(DISPLAY)
         else:
+            game.update(DISPLAY)
             game_over = game.is_game_over()
-            game.update()
+            if game_over:
+                menu.display_game_over(DISPLAY)
+                pygame.display.update()
+                time.sleep(2)
+
         pygame.display.update()
 
     pygame.quit()

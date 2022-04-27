@@ -19,19 +19,19 @@ class Game:
         self.x = 0
         self.game_over_sound = pygame.mixer.Sound("asset/game_over_sound.ogg")
 
-    def update(self):
-        self.environment.draw_map()
-        self.environment.draw_dots(self.dots)
-        self.environment.draw_score(self.score)
+    def update(self, display):
+        self.environment.draw_map(display)
+        self.environment.draw_dots(display, self.dots)
+        self.environment.draw_score(display, self.score)
 
         (x, y) = self.player.get_position()
 
-        self.player.draw(self.environment)
+        self.player.draw(display, self.environment)
         if (x, y) in self.dots:
             self.score += 1
             self.dots.remove((x, y))
             self.pacman_sound.play()
-        self.enemy.draw(self.environment)
+        self.enemy.draw(display, self.environment)
         self.update_enemy()
 
     def get_dots_group(self):
@@ -54,7 +54,9 @@ class Game:
             self.player.move_down(self.tiles)
 
     def is_game_over(self):
-        return self.player.get_position() == self.enemy.get_position()
+        if self.player.get_position() == self.enemy.get_position():
+            self.game_over_sound.play()
+            return True
 
     def update_enemy(self):
         self.x += 1

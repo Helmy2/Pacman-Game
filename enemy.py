@@ -27,5 +27,5 @@ class Enemy:
     def get_image(self):
         return self._ghost
 
-    def draw(self, environment):
-        environment.draw_image(self._x, self._y, self._ghost)
+    def draw(self,display, environment):
+        environment.draw_image(display,self._x, self._y, self._ghost)

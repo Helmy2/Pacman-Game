@@ -40,5 +40,5 @@ class Player:
     def get_image(self):
         return self._pacman
 
-    def draw(self, environment):
-        environment.draw_image(self._y, self._x, self._pacman)
+    def draw(self, display, environment):
+        environment.draw_image(display, self._y, self._x, self._pacman)

@@ -1,5 +1,7 @@
 import pygame
 
+from utilities import BLACK, WIDTH, HEIGHT
+
 
 class Menu:
     state = 0
@@ -10,7 +12,7 @@ class Menu:
         self.items = items
         self.font = pygame.font.Font(ttf_font, font_size)
 
-    def display_frame(self, DISPLAY, WIDTH, HEIGHT):
+    def display_frame(self, display):
         for index, item in enumerate(self.items):
             if self.state == index:
                 label = self.font.render(item, True, self.select_color)
@@ -25,9 +27,10 @@ class Menu:
             t_h = len(self.items) * height
             pos_y = (HEIGHT * 0.5) - (t_h * 0.5) + (index * height)
 
-            DISPLAY.blit(label, (pos_x, pos_y))
+            display.blit(label, (pos_x, pos_y))
 
-    def display_game_over(self, DISPLAY, WIDTH, HEIGHT):
+    def display_game_over(self, display):
+        display.fill(BLACK)
         label = self.font.render("Game over", True, self.select_color)
         width = label.get_width()
         height = label.get_height()
@@ -35,7 +38,7 @@ class Menu:
         # t_h: total height of text block
         t_h = len(self.items) * height
         pos_y = (HEIGHT * .5) - (t_h * .5)
-        DISPLAY.blit(label, (pos_x, pos_y))
+        display.blit(label, (pos_x, pos_y))
 
     def event_handler(self, e):
         if e.key == pygame.K_RETURN:
