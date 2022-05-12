@@ -21,9 +21,12 @@ class Menu:
 
             self.draw_text(display, label, index + 1)
 
-    def display_game_over(self, display, score):
+    def display_game_over(self, display, score, is_win):
         display.fill(BLACK)
-        label = self.font.render("Game over", True, self.select_color)
+        if is_win:
+            label = self.font.render("Win", True, self.select_color)
+        else:
+            label = self.font.render("Game over", True, self.select_color)
         label2 = self.font.render("Your Score : " + str(score), True, self.select_color)
 
         self.draw_text(display, label)

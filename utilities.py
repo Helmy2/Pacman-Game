@@ -1,4 +1,4 @@
-TILE_SIZE = 40
+TILE_SIZE = 30
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0, 2, 245)

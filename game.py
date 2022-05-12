@@ -56,7 +56,9 @@ class Game:
     def is_game_over(self):
         if self.player.get_position() == self.enemy.get_position():
             self.game_over_sound.play()
-            return True
+            return 1
+        elif not self.dots:
+            return 2
 
     def update_enemy(self):
         self.x += 1
