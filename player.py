@@ -42,3 +42,6 @@ class Player:
 
     def draw(self, display, environment):
         environment.draw_image(display, self._y, self._x, self._pacman)
+
+    def set_position(self, position):
+        (self._y, self._x) = position

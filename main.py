@@ -31,8 +31,8 @@ if __name__ == '__main__':
                         game_over = False
                     if var == 1:
                         running = False
-                else:
-                    game.move(event)
+                # else:
+                #     game.move(event)
 
         DISPLAY.fill(BLACK)
         if game_over:
