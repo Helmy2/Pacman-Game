@@ -3,7 +3,8 @@ import pygame as pygame
 from enemy import Enemy
 from enviroment import Environment
 from player import Player
-from utilities import bfs, AI, GAME_SPEED
+from utilities import GAME_SPEED
+from ai import AI
 
 
 class Game:
@@ -34,7 +35,8 @@ class Game:
             self.pacman_sound.play()
         self.enemy.draw(display, self.environment)
         self.update_enemy()
-        self.auto_move()
+        if len(self.dots) > 0:
+            self.auto_move()
 
     def get_dots_group(self):
         dots = []
@@ -63,9 +65,10 @@ class Game:
 
     def update_enemy(self):
         self.s1 += 1
-        if self.s1 == GAME_SPEED:
+        if self.s1 == GAME_SPEED + 1:
             self.s1 = 0
-            move_list = bfs(self.tiles, self.enemy.get_position(), self.player.get_position())
+            ai = AI(self.tiles, self.dots, self.enemy.get_position(), self.player.get_position())
+            move_list = ai.follow()
             if len(move_list) > 1:
                 self.enemy.set_position(move_list[1])
 
@@ -73,7 +76,7 @@ class Game:
         self.s2 += 1
         if self.s2 == GAME_SPEED:
             self.s2 = 0
-            ai = AI(self.tiles,self.dots, self.player.get_position(), self.enemy.get_position())
-            move_list = ai.bfs_escape()
+            ai = AI(self.tiles, self.dots, self.player.get_position(), self.enemy.get_position())
+            move_list = ai.escape()
             if len(move_list) > 1:
                 self.player.set_position(move_list[1])
